@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String tit = titulo.getText().toString();
+          //      String tit = titulo.getText().toString();
                 String tem = tema.getText().toString();
                 String des = descripcion.getText().toString();
                 noticia.setTitulo(tit);
