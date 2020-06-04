@@ -15,7 +15,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class MainActivity extends AppCompatActivity {
     //Declaración variables a utilizar
     EditText titulo,tema,descripcion;
-    Button aceptar;
+    Button aceptar,cancelar;
     FirebaseDatabase database;
     DatabaseReference myRef;
     Noticia noticia;
@@ -29,7 +29,8 @@ public class MainActivity extends AppCompatActivity {
         titulo=(EditText)findViewById(R.id.txt_titulo);
         tema=(EditText)findViewById(R.id.txt_tema);
         descripcion=(EditText)findViewById(R.id.txt_descripcion);
-        aceptar=(Button)findViewById(R.id.aceptar);
+        aceptar=(Button)findViewById(R.id.btn_aceptar);
+        cancelar=(Button)findViewById(R.id.btn_cancelar);
         noticia = new Noticia();
 
         //conexión con la base de datos
@@ -38,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
 
         //listener boton aceptar
         aceptar.setOnClickListener(new View.OnClickListener(){
-
             @Override
             public void onClick(View view) {
                 String tit = titulo.getText().toString();
@@ -50,12 +50,26 @@ public class MainActivity extends AppCompatActivity {
                 //databaseReference.child("Noticia").child(noticia.getUid()).setValue(noticia);
                 myRef.push().setValue(noticia);
                 Toast.makeText(MainActivity.this, "agregado", Toast.LENGTH_LONG).show();
-
-
+                titulo.setText("");
+                tema.setText("");
+                descripcion.setText("");
             }
         });
 
+        cancelar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "cancelado", Toast.LENGTH_LONG).show();
+            }
+        });
 
+        }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
     }
+
 }
+
+

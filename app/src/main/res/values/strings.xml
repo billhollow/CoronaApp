@@ -5,4 +5,5 @@
     <string name="txt_tema">Tema</string>
     <string name="txt_descripcion">Descripción</string>
     <string name="btn_aceptar">ACEPTAR</string>
+    <string name="btn_cancelar">CANCELAR</string>
 </resources>
