@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">CoronaApp</string>
+
+    <string name="txt_titulo">Título</string>
+    <string name="txt_tema">Tema</string>
+    <string name="txt_descripcion">Descripción</string>
+    <string name="btn_aceptar">ACEPTAR</string>
+</resources>
