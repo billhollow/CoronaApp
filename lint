@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<lint>
-    <issue id="FindViewByIdCast">
-        <ignore path="CoronaApp\app\src\main\java\com\example\coronaapp\MainActivity.java"/>
-    </issue>
-</lint>

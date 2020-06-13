@@ -1,6 +1,5 @@
 package com.example.coronaapp;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -65,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         }
-    @SuppressLint("NewApi")
+
     @Override
     protected void onStart() {
         super.onStart();
