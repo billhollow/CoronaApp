@@ -1,0 +1,164 @@
+<problems>
+  <problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/example/coronaapp/MainActivity.java</file>
+  <line>29</line>
+  <module>app</module>
+  <package>com.example.coronaapp</package>
+  <entry_point TYPE="method" FQNAME="com.example.coronaapp.MainActivity void onCreate(android.os.Bundle savedInstanceState)" />
+  <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+  <description>Typo: In word 'Extracción'</description>
+</problem>
+  <problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/example/coronaapp/MainActivity.java</file>
+  <line>29</line>
+  <module>app</module>
+  <package>com.example.coronaapp</package>
+  <entry_point TYPE="method" FQNAME="com.example.coronaapp.MainActivity void onCreate(android.os.Bundle savedInstanceState)" />
+  <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+  <description>Typo: In word 'datos'</description>
+</problem>
+  <problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/example/coronaapp/MainActivity.java</file>
+  <line>37</line>
+  <module>app</module>
+  <package>com.example.coronaapp</package>
+  <entry_point TYPE="method" FQNAME="com.example.coronaapp.MainActivity void onCreate(android.os.Bundle savedInstanceState)" />
+  <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+  <description>Typo: In word 'conexión'</description>
+</problem>
+  <problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/example/coronaapp/MainActivity.java</file>
+  <line>37</line>
+  <module>app</module>
+  <package>com.example.coronaapp</package>
+  <entry_point TYPE="method" FQNAME="com.example.coronaapp.MainActivity void onCreate(android.os.Bundle savedInstanceState)" />
+  <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+  <description>Typo: In word 'datos'</description>
+</problem>
+  <problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/example/coronaapp/MainActivity.java</file>
+  <line>39</line>
+  <module>app</module>
+  <package>com.example.coronaapp</package>
+  <entry_point TYPE="method" FQNAME="com.example.coronaapp.MainActivity void onCreate(android.os.Bundle savedInstanceState)" />
+  <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+  <description>Typo: In word 'Noticia'</description>
+</problem>
+  <problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/example/coronaapp/MainActivity.java</file>
+  <line>41</line>
+  <module>app</module>
+  <package>com.example.coronaapp</package>
+  <entry_point TYPE="method" FQNAME="com.example.coronaapp.MainActivity void onCreate(android.os.Bundle savedInstanceState)" />
+  <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+  <description>Typo: In word 'boton'</description>
+</problem>
+  <problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/example/coronaapp/MainActivity.java</file>
+  <line>41</line>
+  <module>app</module>
+  <package>com.example.coronaapp</package>
+  <entry_point TYPE="method" FQNAME="com.example.coronaapp.MainActivity void onCreate(android.os.Bundle savedInstanceState)" />
+  <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+  <description>Typo: In word 'aceptar'</description>
+</problem>
+  <problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/example/coronaapp/MainActivity.java</file>
+  <line>19</line>
+  <module>app</module>
+  <package>com.example.coronaapp</package>
+  <entry_point TYPE="field" FQNAME="com.example.coronaapp.MainActivity aceptar" />
+  <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+  <description>Typo: In word 'aceptar'</description>
+</problem>
+  <problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/example/coronaapp/MainActivity.java</file>
+  <line>19</line>
+  <module>app</module>
+  <package>com.example.coronaapp</package>
+  <entry_point TYPE="field" FQNAME="com.example.coronaapp.MainActivity cancelar" />
+  <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+  <description>Typo: In word 'cancelar'</description>
+</problem>
+  <problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/example/coronaapp/MainActivity.java</file>
+  <line>63</line>
+  <module>app</module>
+  <package>com.example.coronaapp</package>
+  <entry_point TYPE="method" FQNAME="com.example.coronaapp.MainActivity$2 void onClick(android.view.View v)" />
+  <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+  <description>Typo: In word 'cancelado'</description>
+</problem>
+  <problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/example/coronaapp/MainActivity.java</file>
+  <line>18</line>
+  <module>app</module>
+  <package>com.example.coronaapp</package>
+  <entry_point TYPE="field" FQNAME="com.example.coronaapp.MainActivity descripcion" />
+  <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+  <description>Typo: In word 'descripcion'</description>
+</problem>
+  <problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/example/coronaapp/MainActivity.java</file>
+  <line>18</line>
+  <module>app</module>
+  <package>com.example.coronaapp</package>
+  <entry_point TYPE="field" FQNAME="com.example.coronaapp.MainActivity tema" />
+  <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+  <description>Typo: In word 'tema'</description>
+</problem>
+  <problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/example/coronaapp/MainActivity.java</file>
+  <line>17</line>
+  <module>app</module>
+  <package>com.example.coronaapp</package>
+  <entry_point TYPE="field" FQNAME="com.example.coronaapp.MainActivity titulo" />
+  <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+  <description>Typo: In word 'Declaración'</description>
+</problem>
+  <problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/example/coronaapp/MainActivity.java</file>
+  <line>17</line>
+  <module>app</module>
+  <package>com.example.coronaapp</package>
+  <entry_point TYPE="field" FQNAME="com.example.coronaapp.MainActivity titulo" />
+  <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+  <description>Typo: In word 'utilizar'</description>
+</problem>
+  <problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/example/coronaapp/MainActivity.java</file>
+  <line>18</line>
+  <module>app</module>
+  <package>com.example.coronaapp</package>
+  <entry_point TYPE="field" FQNAME="com.example.coronaapp.MainActivity titulo" />
+  <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+  <description>Typo: In word 'titulo'</description>
+</problem>
+  <problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/example/coronaapp/MainActivity.java</file>
+  <line>51</line>
+  <module>app</module>
+  <package>com.example.coronaapp</package>
+  <entry_point TYPE="method" FQNAME="com.example.coronaapp.MainActivity$1 void onClick(android.view.View view)" />
+  <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+  <description>Typo: In word 'Noticia'</description>
+</problem>
+  <problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/example/coronaapp/MainActivity.java</file>
+  <line>51</line>
+  <module>app</module>
+  <package>com.example.coronaapp</package>
+  <entry_point TYPE="method" FQNAME="com.example.coronaapp.MainActivity$1 void onClick(android.view.View view)" />
+  <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+  <description>Typo: In word 'noticia'</description>
+</problem>
+  <problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/example/coronaapp/MainActivity.java</file>
+  <line>53</line>
+  <module>app</module>
+  <package>com.example.coronaapp</package>
+  <entry_point TYPE="method" FQNAME="com.example.coronaapp.MainActivity$1 void onClick(android.view.View view)" />
+  <problem_class severity="TYPO" attribute_key="TYPO">Typo</problem_class>
+  <description>Typo: In word 'agregado'</description>
+</problem>
+</problems>

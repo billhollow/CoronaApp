@@ -1,0 +1,14 @@
+<problems>
+  <problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/example/coronaapp/MainActivity.java</file>
+  <line>69</line>
+  <module>app</module>
+  <package>com.example.coronaapp</package>
+  <entry_point TYPE="method" FQNAME="com.example.coronaapp.MainActivity void onStart()" />
+  <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Empty method</problem_class>
+  <hints>
+    <hint value="false" />
+  </hints>
+  <description>Method only calls its super</description>
+</problem>
+</problems>

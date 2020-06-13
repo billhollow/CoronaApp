@@ -1,0 +1,28 @@
+<problems>
+  <problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/example/coronaapp/MainActivity.java</file>
+  <line>15</line>
+  <module>app</module>
+  <package>com.example.coronaapp</package>
+  <entry_point TYPE="class" FQNAME="com.example.coronaapp.MainActivity" />
+  <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">unused declaration</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>Class is not instantiated.</description>
+</problem>
+  <problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/example/coronaapp/MainActivity.java</file>
+  <line>15</line>
+  <module>app</module>
+  <package>com.example.coronaapp</package>
+  <entry_point TYPE="class" FQNAME="com.example.coronaapp.MainActivity" />
+  <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">unused declaration</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>Class is not instantiated.</description>
+</problem>
+</problems>
