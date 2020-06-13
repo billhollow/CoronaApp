@@ -1,0 +1,80 @@
+<problems>
+  <problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/example/coronaapp/MainActivity.java</file>
+  <line>20</line>
+  <module>app</module>
+  <package>com.example.coronaapp</package>
+  <entry_point TYPE="field" FQNAME="com.example.coronaapp.MainActivity database" />
+  <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">unused declaration</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>Field is assigned but never accessed.</description>
+</problem>
+  <problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/example/coronaapp/model/Noticia.java</file>
+  <line>16</line>
+  <module>app</module>
+  <package>com.example.coronaapp.model</package>
+  <entry_point TYPE="method" FQNAME="com.example.coronaapp.model.Noticia void setUid(java.lang.String uid)" />
+  <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">unused declaration</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>Method is never used.</description>
+</problem>
+  <problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/example/coronaapp/model/Noticia.java</file>
+  <line>12</line>
+  <module>app</module>
+  <package>com.example.coronaapp.model</package>
+  <entry_point TYPE="method" FQNAME="com.example.coronaapp.model.Noticia java.lang.String getUid()" />
+  <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">unused declaration</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>Method is never used.</description>
+</problem>
+  <problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/example/coronaapp/model/Noticia.java</file>
+  <line>36</line>
+  <module>app</module>
+  <package>com.example.coronaapp.model</package>
+  <entry_point TYPE="method" FQNAME="com.example.coronaapp.model.Noticia java.lang.String getDescripcion()" />
+  <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">unused declaration</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>Method is never used.</description>
+</problem>
+  <problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/example/coronaapp/model/Noticia.java</file>
+  <line>20</line>
+  <module>app</module>
+  <package>com.example.coronaapp.model</package>
+  <entry_point TYPE="method" FQNAME="com.example.coronaapp.model.Noticia java.lang.String getTitulo()" />
+  <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">unused declaration</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>Method is never used.</description>
+</problem>
+  <problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/example/coronaapp/model/Noticia.java</file>
+  <line>28</line>
+  <module>app</module>
+  <package>com.example.coronaapp.model</package>
+  <entry_point TYPE="method" FQNAME="com.example.coronaapp.model.Noticia java.lang.String getTema()" />
+  <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">unused declaration</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>Method is never used.</description>
+</problem>
+</problems>

@@ -1,0 +1,106 @@
+<problems>
+  <problem>
+  <file>file://$PROJECT_DIR$/app/src/androidTest/java/com/example/coronaapp/ExampleInstrumentedTest.java</file>
+  <line>19</line>
+  <module>app</module>
+  <package>com.example.coronaapp</package>
+  <entry_point TYPE="class" FQNAME="com.example.coronaapp.ExampleInstrumentedTest" />
+  <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">unused declaration</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>Class is not instantiated.</description>
+</problem>
+  <problem>
+  <file>file://$PROJECT_DIR$/app/src/androidTest/java/com/example/coronaapp/ExampleInstrumentedTest.java</file>
+  <line>21</line>
+  <module>app</module>
+  <package>com.example.coronaapp</package>
+  <entry_point TYPE="method" FQNAME="com.example.coronaapp.ExampleInstrumentedTest void useAppContext()" />
+  <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">unused declaration</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>Method is never used.</description>
+</problem>
+  <problem>
+  <file>file://$PROJECT_DIR$/app/src/test/java/com/example/coronaapp/ExampleUnitTest.java</file>
+  <line>12</line>
+  <module>app</module>
+  <package>com.example.coronaapp</package>
+  <entry_point TYPE="class" FQNAME="com.example.coronaapp.ExampleUnitTest" />
+  <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">unused declaration</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>Class is not instantiated.</description>
+</problem>
+  <problem>
+  <file>file://$PROJECT_DIR$/app/src/test/java/com/example/coronaapp/ExampleUnitTest.java</file>
+  <line>14</line>
+  <module>app</module>
+  <package>com.example.coronaapp</package>
+  <entry_point TYPE="method" FQNAME="com.example.coronaapp.ExampleUnitTest void addition_isCorrect()" />
+  <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">unused declaration</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>Method is never used.</description>
+</problem>
+  <problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/example/coronaapp/MainActivity.java</file>
+  <line>16</line>
+  <module>app</module>
+  <package>com.example.coronaapp</package>
+  <entry_point TYPE="class" FQNAME="com.example.coronaapp.MainActivity" />
+  <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">unused declaration</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>Class is not instantiated.</description>
+</problem>
+  <problem>
+  <file>file://$PROJECT_DIR$/app/src/androidTest/java/com/example/coronaapp/ExampleInstrumentedTest.java</file>
+  <line>19</line>
+  <module>app</module>
+  <package>com.example.coronaapp</package>
+  <entry_point TYPE="class" FQNAME="com.example.coronaapp.ExampleInstrumentedTest" />
+  <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">unused declaration</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>Class is not instantiated.</description>
+</problem>
+  <problem>
+  <file>file://$PROJECT_DIR$/app/src/test/java/com/example/coronaapp/ExampleUnitTest.java</file>
+  <line>12</line>
+  <module>app</module>
+  <package>com.example.coronaapp</package>
+  <entry_point TYPE="class" FQNAME="com.example.coronaapp.ExampleUnitTest" />
+  <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">unused declaration</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>Class is not instantiated.</description>
+</problem>
+  <problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/example/coronaapp/MainActivity.java</file>
+  <line>16</line>
+  <module>app</module>
+  <package>com.example.coronaapp</package>
+  <entry_point TYPE="class" FQNAME="com.example.coronaapp.MainActivity" />
+  <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">unused declaration</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>Class is not instantiated.</description>
+</problem>
+</problems>
