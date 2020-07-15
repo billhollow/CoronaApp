@@ -43,6 +43,6 @@ public class Noticia {
 
     @Override
     public String toString() {
-        return this.titulo;
+        return "Título: "+this.titulo + "\nTema: "+this.tema;
     }
 }

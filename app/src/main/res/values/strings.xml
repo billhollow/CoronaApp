@@ -6,4 +6,7 @@
     <string name="txt_descripcion">Descripción</string>
     <string name="btn_aceptar">ACEPTAR</string>
     <string name="btn_cancelar">CANCELAR</string>
+    <string name="btn_agregar">AGREGAR</string>
+    <string name="txt_noticias">NOTICIAS</string>
+    <string name="list_noticias">NOTICIAS2</string>
 </resources>
