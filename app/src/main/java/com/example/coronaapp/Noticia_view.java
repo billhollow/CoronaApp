@@ -195,16 +195,19 @@ public class Noticia_view extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.noticias:{
+                drawerLayout.closeDrawer(GravityCompat.START);
                 Intent index= new Intent(this, Noticias_index.class);
                 startActivity(index);
                 break;
             }
             case R.id.situacion:{
+                drawerLayout.closeDrawer(GravityCompat.START);
                 Intent index= new Intent(this, Situacion_index.class);
                 startActivity(index);
                 break;
             }
             case R.id.comunicados:{
+                drawerLayout.closeDrawer(GravityCompat.START);
                 Intent index= new Intent(this, Main2Activity.class);
                 startActivity(index);
                 Toast.makeText(this, "Gonna die, you know! C", Toast.LENGTH_SHORT).show();

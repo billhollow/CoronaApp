@@ -1,5 +1,6 @@
 package com.example.coronaapp;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -56,18 +58,44 @@ public class Situacion_add extends AppCompatActivity implements NavigationView.O
         drawerLayout = findViewById(R.id.drawer_layout);
 
         date = Calendar.getInstance().getTime();
-        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault());
+        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
         formattedDate = df.format(date);
 
 
         //Extracción de datos
         infectados=(EditText)findViewById(R.id.txt_infectados);
         muertos=(EditText)findViewById(R.id.txt_muertos);
-        fecha=(EditText)findViewById(R.id.txt_fecha);
+        fecha=findViewById(R.id.txt_fecha);
         aceptar=(Button)findViewById(R.id.btn_aceptar);
         cancelar=(Button)findViewById(R.id.btn_cancelar);
         situacion= new Situacion();
 
+        fecha.setText(formattedDate);
+
+        Calendar calendar = Calendar.getInstance();
+        final int year = calendar.get(Calendar.YEAR);
+        final int month = calendar.get(Calendar.MONTH);
+        final int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+
+        fecha.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v){
+                closeKeyboard();
+                DatePickerDialog datePickerDialog = new DatePickerDialog(
+                        Situacion_add.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int day) {
+                        month = month+1;
+                        String auxDate = day+"-"+month+"-"+year;
+                        fecha.setText(auxDate);
+                    }
+                }, year, month, day);
+                datePickerDialog.show();
+
+            }
+        });
         //conexión con la base de datos
         myRef= FirebaseDatabase.getInstance().getReference().child("Situacion");
 
@@ -76,25 +104,20 @@ public class Situacion_add extends AppCompatActivity implements NavigationView.O
             @Override
             public void onClick(View view) {
 
-                    String inf = infectados.getText().toString();
-                    String mue = muertos.getText().toString();
-                    String fec = fecha.getText().toString();
+                String inf = infectados.getText().toString();
+                String mue = muertos.getText().toString();
+                String fec = fecha.getText().toString();
 
-                    date = Calendar.getInstance().getTime();
-                    SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-                    formattedDate = df.format(date);
+                situacion.setUid(UUID.randomUUID().toString());
+                situacion.setInfectados(Integer.parseInt(inf));
+                situacion.setMuertos(Integer.parseInt(mue));
+                situacion.setFormattedDate(fec);
 
-                    situacion.setUid(UUID.randomUUID().toString());
-                    situacion.setInfectados(Integer.parseInt(inf));
-                    situacion.setMuertos(Integer.parseInt(mue));
-                    situacion.setDate(date);
-                    situacion.setFormattedDate(formattedDate);
+                //databaseReference.child("Noticia").child(noticia.getUid()).setValue(noticia);
+                myRef.child(situacion.getUid()).setValue(situacion);
 
-                    //databaseReference.child("Noticia").child(noticia.getUid()).setValue(noticia);
-                    myRef.child(situacion.getUid()).setValue(situacion);
-
-                    Toast.makeText(Situacion_add.this, "agregado", Toast.LENGTH_SHORT).show();
-                    limpiar();
+                Toast.makeText(Situacion_add.this, "agregado", Toast.LENGTH_SHORT).show();
+                limpiar();
 
             }
         });
@@ -115,16 +138,19 @@ public class Situacion_add extends AppCompatActivity implements NavigationView.O
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.noticias:{
+                drawerLayout.closeDrawer(GravityCompat.START);
                 Intent index= new Intent(this, Noticias_index.class);
                 startActivity(index);
                 break;
             }
             case R.id.situacion:{
+                drawerLayout.closeDrawer(GravityCompat.START);
                 Intent index= new Intent(this, Situacion_index.class);
                 startActivity(index);
                 break;
             }
             case R.id.comunicados:{
+                drawerLayout.closeDrawer(GravityCompat.START);
                 Intent index= new Intent(this, Main2Activity.class);
                 startActivity(index);
                 Toast.makeText(this, "Gonna die, you know! C", Toast.LENGTH_SHORT).show();
@@ -175,5 +201,6 @@ public class Situacion_add extends AppCompatActivity implements NavigationView.O
     }
 
 }
+
 
 

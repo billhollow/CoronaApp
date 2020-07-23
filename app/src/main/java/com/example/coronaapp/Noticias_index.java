@@ -107,16 +107,19 @@ public class Noticias_index extends AppCompatActivity implements NavigationView.
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.noticias:{
+                drawerLayout.closeDrawer(GravityCompat.START);
                 Intent index= new Intent(this, Noticias_index.class);
                 startActivity(index);
                 break;
             }
             case R.id.situacion:{
+                drawerLayout.closeDrawer(GravityCompat.START);
                 Intent index= new Intent(this, Situacion_index.class);
                 startActivity(index);
                 break;
             }
             case R.id.comunicados:{
+                drawerLayout.closeDrawer(GravityCompat.START);
                 Intent index= new Intent(this, Main2Activity.class);
                 startActivity(index);
                 Toast.makeText(this, "Gonna die, you know! C", Toast.LENGTH_SHORT).show();
@@ -138,6 +141,7 @@ public class Noticias_index extends AppCompatActivity implements NavigationView.
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
             case R.id.icon_add:{
+
                 Intent agregar = new Intent(Noticias_index.this, MainActivity.class);
                 startActivity(agregar);
                 break;

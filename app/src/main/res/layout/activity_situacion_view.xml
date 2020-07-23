@@ -97,7 +97,7 @@
                     android:gravity="top"
                     android:hint="@string/txt_fecha"
                     android:importantForAutofill="no"
-                    android:inputType="textMultiLine" />
+                    android:inputType="text" />
 
                 <LinearLayout
                     android:id="@+id/buttons_group"
