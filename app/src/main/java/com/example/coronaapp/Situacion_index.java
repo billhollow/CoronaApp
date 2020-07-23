@@ -18,7 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.example.coronaapp.model.Noticia;
+import com.example.coronaapp.model.Situacion;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -29,13 +29,13 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Noticias_index extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class Situacion_index extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
-    private List <Noticia> listaNoticia = new ArrayList <Noticia> ();
-    ArrayAdapter<Noticia> noticiaArrayAdapter;
+    private List <Situacion> listaSituacion = new ArrayList <Situacion> ();
+    ArrayAdapter<Situacion> situacionArrayAdapter;
     DatabaseReference myRef;
     ListView lista;
-    private Noticia noticiaSelected;
+    private Situacion situacionSelected;
 
     //menu copy1
     private DrawerLayout drawerLayout;
@@ -43,7 +43,7 @@ public class Noticias_index extends AppCompatActivity implements NavigationView.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_noticias_index);
+        setContentView(R.layout.activity_situacion_index);
 
         //menu copy 1
         NavigationView navigationMenu= findViewById(R.id.navigator);
@@ -53,42 +53,41 @@ public class Noticias_index extends AppCompatActivity implements NavigationView.
         actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_bar_1);
         drawerLayout = findViewById(R.id.drawer_layout);
 
-        lista = findViewById(R.id.lista_noticia);
+        lista = findViewById(R.id.lista_situacion);
         establecerConexion();
         mostrar();
         lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                noticiaSelected = (Noticia) parent.getItemAtPosition(position);
-                Intent ver = new Intent(Noticias_index.this, Noticia_view.class);
-                ver.putExtra("id",noticiaSelected.getUid());
-                ver.putExtra("titulo",noticiaSelected.getTitulo());
-                ver.putExtra("tema",noticiaSelected.getTema());
-                ver.putExtra("fecha", noticiaSelected.getFormattedDate());
-                ver.putExtra("descripcion",noticiaSelected.getDescripcion());
+                situacionSelected= (Situacion) parent.getItemAtPosition(position);
+                Intent ver = new Intent(Situacion_index.this, Situacion_view.class);
+                ver.putExtra("id",situacionSelected.getUid());
+                ver.putExtra("infectados",situacionSelected.getInfectados());
+                ver.putExtra("muertos",situacionSelected.getMuertos());
+                ver.putExtra("fecha", situacionSelected.getFormattedDate());
                 startActivity(ver);
-              }
+            }
 
-            });
+        });
     }
 
     //conexión con la base de datos
     public void establecerConexion(){
-        myRef= FirebaseDatabase.getInstance().getReference("Noticia");
+        myRef= FirebaseDatabase.getInstance().getReference("Situacion");
     }
 
     public void mostrar(){
 
-        myRef= FirebaseDatabase.getInstance().getReference("Noticia");
+        myRef= FirebaseDatabase.getInstance().getReference("Situacion");
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                listaNoticia.clear();
+                listaSituacion.clear();
                 for(DataSnapshot objSnapShot : dataSnapshot.getChildren()){
-                    Noticia n1 = objSnapShot.getValue(Noticia.class);
-                    listaNoticia.add(n1);
-                    noticiaArrayAdapter = new ArrayAdapter<Noticia>(Noticias_index.this, android.R.layout.simple_list_item_1,listaNoticia);
-                    lista.setAdapter(noticiaArrayAdapter);
+                    Situacion n1 = objSnapShot.getValue(Situacion.class);
+                    listaSituacion.add(n1);
+                    situacionArrayAdapter = new ArrayAdapter<Situacion>(Situacion_index.this, android.R.layout.simple_list_item_1,listaSituacion);
+                    lista.setAdapter(situacionArrayAdapter);
                 }
             }
             @Override
@@ -138,7 +137,7 @@ public class Noticias_index extends AppCompatActivity implements NavigationView.
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
             case R.id.icon_add:{
-                Intent agregar = new Intent(Noticias_index.this, MainActivity.class);
+                Intent agregar = new Intent(Situacion_index.this, Situacion_add.class);
                 startActivity(agregar);
                 break;
             }
@@ -157,7 +156,6 @@ public class Noticias_index extends AppCompatActivity implements NavigationView.
         return true;
     }
 
-
     public void closeKeyboard(){
         View view = this.getCurrentFocus();
         if(view != null){
@@ -166,3 +164,4 @@ public class Noticias_index extends AppCompatActivity implements NavigationView.
         }
     }
 }
+

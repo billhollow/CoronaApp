@@ -18,7 +18,7 @@
         android:fadeScrollbars="false"
         android:focusable="true"
         android:focusableInTouchMode="true"
-        tools:context=".Noticias_index">
+        tools:context=".Situacion_add">
 
         <ScrollView
             android:layout_width="wrap_content"
@@ -35,67 +35,67 @@
                 android:paddingEnd="20sp">
 
                 <TextView
-                    android:id="@+id/lbl_titulo"
+                    android:id="@+id/lbl_infectados"
                     android:layout_width="328dp"
                     android:layout_height="50dp"
                     android:layout_gravity="start|center_horizontal"
                     android:gravity="center_vertical"
-                    android:text="@string/txt_titulo"
+                    android:text="@string/txt_infectados"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
                 <EditText
-                    android:id="@+id/txt_titulo"
+                    android:id="@+id/txt_infectados"
                     android:layout_width="328dp"
                     android:layout_height="50dp"
                     android:layout_gravity="start"
                     android:autofillHints=""
                     android:ems="10"
                     android:gravity="top"
-                    android:hint="@string/txt_titulo"
+                    android:hint="@string/txt_infectados"
                     android:inputType="textPersonName"
                     android:textAllCaps="false"
                     android:textIsSelectable="false" />
 
                 <TextView
-                    android:id="@+id/lbl_tema"
+                    android:id="@+id/lbl_muertos"
                     android:layout_width="328dp"
                     android:layout_height="50dp"
                     android:layout_gravity="start"
                     android:gravity="center_vertical"
-                    android:text="@string/txt_tema"
+                    android:text="@string/txt_muertos"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
                 <EditText
-                    android:id="@+id/txt_tema"
+                    android:id="@+id/txt_muertos"
                     android:layout_width="328dp"
                     android:layout_height="50dp"
                     android:layout_gravity="start"
                     android:autofillHints=""
                     android:ems="10"
                     android:gravity="top"
-                    android:hint="@string/txt_tema"
+                    android:hint="@string/txt_muertos"
                     android:inputType="textPersonName" />
 
                 <TextView
-                    android:id="@+id/lbl_descripcion"
+                    android:id="@+id/lbl_fecha"
                     android:layout_width="328dp"
                     android:layout_height="50dp"
                     android:layout_gravity="start"
                     android:gravity="center_vertical"
-                    android:text="@string/txt_descripcion"
+                    android:text="@string/txt_fecha"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
                 <EditText
-                    android:id="@+id/txt_descripcion"
+                    android:id="@+id/txt_fecha"
                     android:layout_width="328dp"
-                    android:layout_height="160dp"
+                    android:layout_height="50dp"
                     android:layout_gravity="start"
                     android:ems="10"
                     android:gravity="top"
-                    android:hint="@string/txt_descripcion"
+                    android:hint="@string/txt_fecha"
                     android:importantForAutofill="no"
                     android:inputType="textMultiLine" />
 
@@ -110,7 +110,7 @@
                         style="@style/Widget.AppCompat.Button.Colored"
                         android:layout_width="162dp"
                         android:layout_height="wrap_content"
-                        android:onClick="index_noticia"
+                        android:onClick="index"
                         android:text="@string/btn_cancelar" />
 
                     <Button
@@ -135,6 +135,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:menu="@menu/navigation_menu"
+
         android:layout_gravity="start"/>
+
+
+
 
 </androidx.drawerlayout.widget.DrawerLayout>

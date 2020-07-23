@@ -14,11 +14,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fadeScrollbars="false"
-        tools:context=".Noticias_index">
+        tools:context=".Situacion_index">
 
 
         <ListView
-            android:id="@+id/lista_noticia"
+            android:id="@+id/lista_situacion"
             android:layout_width="340dp"
             android:layout_height="349dp"
             android:layout_marginTop="4dp"
@@ -48,7 +48,7 @@
                     android:layout_height="86dp"
                     android:gravity="center"
                     android:paddingTop="20sp"
-                    android:text="@string/txt_noticias"
+                    android:text="@string/txt_situaciones"
                     android:textSize="30sp" />
 
             </LinearLayout>

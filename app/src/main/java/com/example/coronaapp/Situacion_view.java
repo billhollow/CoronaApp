@@ -24,7 +24,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class Noticia_view extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class Situacion_view extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     EditText titulo,tema,descripcion, fecha;
     Button aceptar,cancelar;
     DatabaseReference myRef;
@@ -85,8 +85,8 @@ public class Noticia_view extends AppCompatActivity implements NavigationView.On
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         myRef.child("Noticia").child(getIntent().getStringExtra("id")).removeValue();
-                        Toast.makeText(Noticia_view.this,"Borrado",Toast.LENGTH_SHORT).show();
-                        Intent borrado = new Intent(Noticia_view.this, Noticias_index.class);
+                        Toast.makeText(Situacion_view.this,"Borrado",Toast.LENGTH_SHORT).show();
+                        Intent borrado = new Intent(Situacion_view.this, Situacion_index.class);
                         startActivity(borrado);
                     }
                 });
@@ -100,7 +100,7 @@ public class Noticia_view extends AppCompatActivity implements NavigationView.On
                 break;
             }
             case R.id.icon_update:{
-                Toast.makeText(Noticia_view.this,"Usted puede editar ahora",Toast.LENGTH_SHORT).show();
+                Toast.makeText(Situacion_view.this,"Usted puede editar ahora",Toast.LENGTH_SHORT).show();
                 titulo.setEnabled(true);
                 tema.setEnabled(true);
                 descripcion.setEnabled(true);
@@ -143,7 +143,7 @@ public class Noticia_view extends AppCompatActivity implements NavigationView.On
                     n.setTema(tema.getText().toString());
                     n.setDescripcion(descripcion.getText().toString());
                     myRef.child("Noticia").child(getIntent().getStringExtra("id")).setValue(n);
-                    Toast.makeText(Noticia_view.this,"Actualizado",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Situacion_view.this,"Actualizado",Toast.LENGTH_SHORT).show();
                     restart();
                 }
             });
@@ -175,15 +175,15 @@ public class Noticia_view extends AppCompatActivity implements NavigationView.On
         String des = descripcion.getText().toString();
 
         if(tit.trim().isEmpty()){
-            Toast.makeText(Noticia_view.this, "el título no puede estar vacío", Toast.LENGTH_SHORT).show();
+            Toast.makeText(Situacion_view.this, "el título no puede estar vacío", Toast.LENGTH_SHORT).show();
             return false;
         }
         if(tem.trim().isEmpty()){
-            Toast.makeText(Noticia_view.this, "el tema no puede estar vacío", Toast.LENGTH_SHORT).show();
+            Toast.makeText(Situacion_view.this, "el tema no puede estar vacío", Toast.LENGTH_SHORT).show();
             return false;
         }
         if(des.trim().isEmpty()){
-            Toast.makeText(Noticia_view.this, "La descripción no puede estar vacia", Toast.LENGTH_SHORT).show();
+            Toast.makeText(Situacion_view.this, "La descripción no puede estar vacia", Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;

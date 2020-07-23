@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+   <item android:id="@+id/noticias" android:title="Noticias" android:icon="@drawable/ic_noticia"/>
+    <item android:id="@+id/situacion" android:title="Situacion Actual" android:icon="@drawable/ic_situacion_actual" />
+    <item android:id="@+id/comunicados" android:title="Comunicados del Presidente" android:icon="@drawable/ic_comunicados" />
+    <item android:id="@+id/delivery" android:title="Deliverys" android:icon="@drawable/ic_delivery" />
+    <item android:id="@+id/recomendaciones" android:title="Recomendaciones" android:icon="@drawable/ic_recomendacion" />
+</menu>
