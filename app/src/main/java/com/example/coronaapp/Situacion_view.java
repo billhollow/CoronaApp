@@ -19,15 +19,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.example.coronaapp.model.Noticia;
+import com.example.coronaapp.model.Situacion;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class Situacion_view extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
-    EditText titulo,tema,descripcion, fecha;
+
+    //Declaración variables a utilizar
+    EditText infectados, muertos, fecha;
     Button aceptar,cancelar;
     DatabaseReference myRef;
+    Situacion situacion;
 
     //menu copy1
     private DrawerLayout drawerLayout;
@@ -35,7 +38,7 @@ public class Situacion_view extends AppCompatActivity implements NavigationView.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_noticia_view);
+        setContentView(R.layout.activity_situacion_view);
 
         //menu copy 1
         NavigationView navigationMenu= findViewById(R.id.navigator);
@@ -46,22 +49,21 @@ public class Situacion_view extends AppCompatActivity implements NavigationView.
         drawerLayout = findViewById(R.id.drawer_layout);
 
         //Extracción de datos
-        titulo=(EditText)findViewById(R.id.txt_titulo);
-        tema=(EditText)findViewById(R.id.txt_tema);
-        fecha=findViewById(R.id.txt_fecha);
-        descripcion=(EditText)findViewById(R.id.txt_descripcion);
+        infectados=(EditText)findViewById(R.id.txt_infectados);
+        muertos=(EditText)findViewById(R.id.txt_muertos);
+        fecha=(EditText)findViewById(R.id.txt_fecha);
         aceptar=(Button)findViewById(R.id.btn_aceptar);
         cancelar=(Button)findViewById(R.id.btn_cancelar);
+        situacion= new Situacion();
 
-        titulo.setText(getIntent().getStringExtra("titulo"));
-        tema.setText(getIntent().getStringExtra("tema"));
+        infectados.setText(getIntent().getStringExtra("infectados"));
+        muertos.setText(getIntent().getStringExtra("muertos"));
         fecha.setText(getIntent().getStringExtra("fecha"));
-        descripcion.setText(getIntent().getStringExtra("descripcion"));
 
-        titulo.setEnabled(false);
-        tema.setEnabled(false);
+        infectados.setEnabled(false);
+        muertos.setEnabled(false);
         fecha.setEnabled(false);
-        descripcion.setEnabled(false);
+
         aceptar.setVisibility(View.GONE);
         cancelar.setVisibility(View.GONE);
         establecerConexion();
@@ -84,7 +86,7 @@ public class Situacion_view extends AppCompatActivity implements NavigationView.
                 builder.setPositiveButton("Si", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        myRef.child("Noticia").child(getIntent().getStringExtra("id")).removeValue();
+                        myRef.child("Situacion").child(getIntent().getStringExtra("id")).removeValue();
                         Toast.makeText(Situacion_view.this,"Borrado",Toast.LENGTH_SHORT).show();
                         Intent borrado = new Intent(Situacion_view.this, Situacion_index.class);
                         startActivity(borrado);
@@ -101,9 +103,9 @@ public class Situacion_view extends AppCompatActivity implements NavigationView.
             }
             case R.id.icon_update:{
                 Toast.makeText(Situacion_view.this,"Usted puede editar ahora",Toast.LENGTH_SHORT).show();
-                titulo.setEnabled(true);
-                tema.setEnabled(true);
-                descripcion.setEnabled(true);
+                infectados.setEnabled(true);
+                muertos.setEnabled(true);
+                fecha.setEnabled(true);
                 aceptar.setVisibility(View.VISIBLE);
                 cancelar.setVisibility(View.VISIBLE);
                 break;
@@ -129,7 +131,6 @@ public class Situacion_view extends AppCompatActivity implements NavigationView.
     }
     public void Aceptar(View view){
 
-        if(validador()){
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Actualizar");
             builder.setMessage("¿Esta seguro de actualizar este elemento?");
@@ -137,12 +138,16 @@ public class Situacion_view extends AppCompatActivity implements NavigationView.
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
 
-                    Noticia n = new Noticia();
+                    Situacion n = new Situacion();
+
                     n.setUid(getIntent().getStringExtra("id"));
-                    n.setTitulo(titulo.getText().toString());
-                    n.setTema(tema.getText().toString());
-                    n.setDescripcion(descripcion.getText().toString());
-                    myRef.child("Noticia").child(getIntent().getStringExtra("id")).setValue(n);
+
+                    n.setInfectados(Integer.parseInt(infectados.getText().toString()));
+                    n.setMuertos(Integer.parseInt(muertos.getText().toString()));
+
+                    n.setFormattedDate(fecha.getText().toString());
+
+                    myRef.child("Situacion").child(getIntent().getStringExtra("id")).setValue(n);
                     Toast.makeText(Situacion_view.this,"Actualizado",Toast.LENGTH_SHORT).show();
                     restart();
                 }
@@ -154,40 +159,22 @@ public class Situacion_view extends AppCompatActivity implements NavigationView.
             });
             AlertDialog dialog = builder.create();
             dialog.show();
-        }
+
 
 
     }
     public void establecerConexion(){
         myRef= FirebaseDatabase.getInstance().getReference();
     }
+
     public void restart(){
-        titulo.setEnabled(false);
-        tema.setEnabled(false);
-        descripcion.setEnabled(false);
+        infectados.setEnabled(false);
+        muertos.setEnabled(false);
+        fecha.setEnabled(false);
         aceptar.setVisibility(View.GONE);
         cancelar.setVisibility(View.GONE);
     }
 
-    public boolean validador(){
-        String tit = titulo.getText().toString();
-        String tem = tema.getText().toString();
-        String des = descripcion.getText().toString();
-
-        if(tit.trim().isEmpty()){
-            Toast.makeText(Situacion_view.this, "el título no puede estar vacío", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        if(tem.trim().isEmpty()){
-            Toast.makeText(Situacion_view.this, "el tema no puede estar vacío", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        if(des.trim().isEmpty()){
-            Toast.makeText(Situacion_view.this, "La descripción no puede estar vacia", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        return true;
-    }
 
 
     @Override

@@ -62,9 +62,9 @@ public class Situacion_index extends AppCompatActivity implements NavigationView
                 situacionSelected= (Situacion) parent.getItemAtPosition(position);
                 Intent ver = new Intent(Situacion_index.this, Situacion_view.class);
                 ver.putExtra("id",situacionSelected.getUid());
-                ver.putExtra("infectados",situacionSelected.getInfectados());
-                ver.putExtra("muertos",situacionSelected.getMuertos());
-                ver.putExtra("fecha", situacionSelected.getFormattedDate());
+                ver.putExtra("infectados",situacionSelected.getInfectados()+"");
+                ver.putExtra("muertos",situacionSelected.getMuertos()+"");
+                ver.putExtra("fecha", situacionSelected.getFormattedDate()+"");
                 startActivity(ver);
             }
 

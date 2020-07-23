@@ -17,7 +17,7 @@
         android:focusable="true"
         android:focusableInTouchMode="true"
 
-        tools:context=".Noticias_index">
+        tools:context=".Noticia_view">
 
         <ScrollView
             android:layout_width="wrap_content"

@@ -141,6 +141,7 @@ public class Noticia_view extends AppCompatActivity implements NavigationView.On
                     n.setUid(getIntent().getStringExtra("id"));
                     n.setTitulo(titulo.getText().toString());
                     n.setTema(tema.getText().toString());
+                    n.setFormattedDate(fecha.getText().toString());
                     n.setDescripcion(descripcion.getText().toString());
                     myRef.child("Noticia").child(getIntent().getStringExtra("id")).setValue(n);
                     Toast.makeText(Noticia_view.this,"Actualizado",Toast.LENGTH_SHORT).show();
