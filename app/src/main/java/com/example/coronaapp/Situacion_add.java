@@ -151,9 +151,8 @@ public class Situacion_add extends AppCompatActivity implements NavigationView.O
             }
             case R.id.comunicados:{
                 drawerLayout.closeDrawer(GravityCompat.START);
-                Intent index= new Intent(this, Main2Activity.class);
+                Intent index= new Intent(this, Comunicado_index.class);
                 startActivity(index);
-                Toast.makeText(this, "Gonna die, you know! C", Toast.LENGTH_SHORT).show();
                 break;
             }
             case R.id.delivery:{
@@ -197,7 +196,6 @@ public class Situacion_add extends AppCompatActivity implements NavigationView.O
     public void limpiar(){
         infectados.setText("");
         muertos.setText("");
-        fecha.setText("");
     }
 
 }

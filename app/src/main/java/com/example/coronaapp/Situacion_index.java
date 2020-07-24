@@ -119,9 +119,8 @@ public class Situacion_index extends AppCompatActivity implements NavigationView
             }
             case R.id.comunicados:{
                 drawerLayout.closeDrawer(GravityCompat.START);
-                Intent index= new Intent(this, Main2Activity.class);
+                Intent index= new Intent(this, Comunicado_index.class);
                 startActivity(index);
-                Toast.makeText(this, "Gonna die, you know! C", Toast.LENGTH_SHORT).show();
                 break;
             }
             case R.id.delivery:{

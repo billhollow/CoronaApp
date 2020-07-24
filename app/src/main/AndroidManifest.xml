@@ -11,11 +11,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Main2Activity"></activity>
-        <activity android:name=".Situacion_index"></activity>
-        <activity android:name=".Situacion_add"></activity>
-        <activity android:name=".Situacion_view"></activity>
-
+        <activity android:name=".Comunicado_view"></activity>
+        <activity android:name=".Comunicado_add" />
+        <activity android:name=".Comunicado_index" />
+        <activity android:name=".Main2Activity" />
+        <activity android:name=".Situacion_index" />
+        <activity android:name=".Situacion_add" />
+        <activity android:name=".Situacion_view" />
         <activity android:name=".Noticia_view" />
         <activity android:name=".MainActivity" />
         <activity android:name=".Noticias_index">

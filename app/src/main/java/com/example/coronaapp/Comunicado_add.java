@@ -1,15 +1,15 @@
 package com.example.coronaapp;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -18,24 +18,28 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.example.coronaapp.model.Noticia;
+import com.example.coronaapp.model.Comunicado;
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+import java.util.UUID;
 
-public class Noticias_index extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+@SuppressWarnings("SpellCheckingInspection")
+public class Comunicado_add extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
-    private List <Noticia> listaNoticia = new ArrayList <Noticia> ();
-    ArrayAdapter<Noticia> noticiaArrayAdapter;
+    //Declaración variables a utilizar
+    EditText fecha, descripcion;
+    Button aceptar,cancelar;
     DatabaseReference myRef;
-    ListView lista;
-    private Noticia noticiaSelected;
+    Comunicado comunicado;
+
+    private String formattedDate;
+    private Date date;
 
     //menu copy1
     private DrawerLayout drawerLayout;
@@ -43,7 +47,7 @@ public class Noticias_index extends AppCompatActivity implements NavigationView.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_noticias_index);
+        setContentView(R.layout.activity_comunicado_add);
 
         //menu copy 1
         NavigationView navigationMenu= findViewById(R.id.navigator);
@@ -53,55 +57,79 @@ public class Noticias_index extends AppCompatActivity implements NavigationView.
         actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_bar_1);
         drawerLayout = findViewById(R.id.drawer_layout);
 
-        lista = findViewById(R.id.lista_noticia);
-        establecerConexion();
-        mostrar();
-        lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        date = Calendar.getInstance().getTime();
+        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+        formattedDate = df.format(date);
+
+
+        //Extracción de datos
+        descripcion=(EditText)findViewById(R.id.txt_descripcion);
+        fecha=findViewById(R.id.txt_fecha);
+        aceptar=(Button)findViewById(R.id.btn_aceptar);
+        cancelar=(Button)findViewById(R.id.btn_cancelar);
+        comunicado= new Comunicado();
+
+        fecha.setText(formattedDate);
+
+        Calendar calendar = Calendar.getInstance();
+        final int year = calendar.get(Calendar.YEAR);
+        final int month = calendar.get(Calendar.MONTH);
+        final int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+
+        fecha.setOnClickListener(new View.OnClickListener(){
+
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                noticiaSelected = (Noticia) parent.getItemAtPosition(position);
-                Intent ver = new Intent(Noticias_index.this, Noticia_view.class);
-                ver.putExtra("id",noticiaSelected.getUid());
-                ver.putExtra("titulo",noticiaSelected.getTitulo());
-                ver.putExtra("tema",noticiaSelected.getTema());
-                ver.putExtra("fecha", noticiaSelected.getFormattedDate());
-                ver.putExtra("descripcion",noticiaSelected.getDescripcion());
-                startActivity(ver);
-              }
+            public void onClick(View v){
+                closeKeyboard();
+                DatePickerDialog datePickerDialog = new DatePickerDialog(
+                        Comunicado_add.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int day) {
+                        month = month+1;
+                        String auxDate = day+"-"+month+"-"+year;
+                        fecha.setText(auxDate);
+                    }
+                }, year, month, day);
+                datePickerDialog.show();
 
-            });
-    }
-
-    //conexión con la base de datos
-    public void establecerConexion(){
-        myRef= FirebaseDatabase.getInstance().getReference("Noticia");
-    }
-
-    public void mostrar(){
-
-        myRef= FirebaseDatabase.getInstance().getReference("Noticia");
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                listaNoticia.clear();
-                for(DataSnapshot objSnapShot : dataSnapshot.getChildren()){
-                    Noticia n1 = objSnapShot.getValue(Noticia.class);
-                    listaNoticia.add(n1);
-                    noticiaArrayAdapter = new ArrayAdapter<Noticia>(Noticias_index.this, android.R.layout.simple_list_item_1,listaNoticia);
-                    lista.setAdapter(noticiaArrayAdapter);
-                }
             }
+        });
+        //conexión con la base de datos
+        myRef= FirebaseDatabase.getInstance().getReference().child("Comunicado");
+
+        //listener boton aceptar
+        aceptar.setOnClickListener(new View.OnClickListener(){
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+            public void onClick(View view) {
+
+                String des = descripcion.getText().toString();
+                String fec = fecha.getText().toString();
+
+                comunicado.setUid(UUID.randomUUID().toString());
+                comunicado.setDescripcion(des);
+                comunicado.setFormattedDate(fec);
+
+                //databaseReference.child("Noticia").child(noticia.getUid()).setValue(noticia);
+                myRef.child(comunicado.getUid()).setValue(comunicado);
+
+                Toast.makeText(Comunicado_add.this, "agregado", Toast.LENGTH_SHORT).show();
+                limpiar();
 
             }
         });
     }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.menu.menu_1,menu);
-        return super.onCreateOptionsMenu(menu);
+
+    public void index(View view){
+        Intent index = new Intent(this, Comunicado_index.class);
+        startActivity(index);
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -139,12 +167,6 @@ public class Noticias_index extends AppCompatActivity implements NavigationView.
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
-            case R.id.icon_add:{
-
-                Intent agregar = new Intent(Noticias_index.this, MainActivity.class);
-                startActivity(agregar);
-                break;
-            }
             case android.R.id.home:{
                 if(drawerLayout.isOpen()){
                     drawerLayout.closeDrawer(GravityCompat.START);
@@ -160,7 +182,6 @@ public class Noticias_index extends AppCompatActivity implements NavigationView.
         return true;
     }
 
-
     public void closeKeyboard(){
         View view = this.getCurrentFocus();
         if(view != null){
@@ -168,4 +189,9 @@ public class Noticias_index extends AppCompatActivity implements NavigationView.
             imm.hideSoftInputFromWindow(view.getWindowToken(),0);
         }
     }
+
+    public void limpiar(){
+        descripcion.setText("");
+    }
+
 }
