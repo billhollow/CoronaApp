@@ -172,8 +172,8 @@ public class Situacion_view extends AppCompatActivity implements NavigationView.
 
                     n.setUid(getIntent().getStringExtra("id"));
 
-                    n.setInfectados(Integer.parseInt(infectados.getText().toString()));
-                    n.setMuertos(Integer.parseInt(muertos.getText().toString()));
+                    n.setInfectados(Double.parseDouble(infectados.getText().toString()));
+                    n.setMuertos(Double.parseDouble(muertos.getText().toString()));
                     n.setFormattedDate(fecha.getText().toString());
 
                     myRef.child("Situacion").child(getIntent().getStringExtra("id")).setValue(n);
@@ -228,11 +228,15 @@ public class Situacion_view extends AppCompatActivity implements NavigationView.
                 break;
             }
             case R.id.delivery:{
-                Toast.makeText(this, "Gonna die, you know! D", Toast.LENGTH_SHORT).show();
+                drawerLayout.closeDrawer(GravityCompat.START);
+                Intent index= new Intent(this, Delivery_index.class);
+                startActivity(index);
                 break;
             }
             case R.id.recomendaciones:{
-                Toast.makeText(this, "Gonna die, you know! R", Toast.LENGTH_SHORT).show();
+                drawerLayout.closeDrawer(GravityCompat.START);
+                Intent index= new Intent(this, Recomendacion_index.class);
+                startActivity(index);
                 break;
             }
         }

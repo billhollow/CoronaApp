@@ -11,7 +11,6 @@ public class Noticia {
     private Date date;
 
     public Noticia() {
-
     }
 
     public String getFormattedDate() {

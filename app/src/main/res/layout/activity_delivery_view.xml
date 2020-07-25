@@ -18,7 +18,7 @@ tools:openDrawer="start"
     android:fadeScrollbars="false"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    tools:context=".Comunicado_view">
+    tools:context=".Delivery_view">
 
     <ScrollView
         android:layout_width="wrap_content"
@@ -34,27 +34,49 @@ tools:openDrawer="start"
             android:paddingTop="0sp"
             android:paddingEnd="20sp">
 
-
             <TextView
-                android:id="@+id/lbl_fecha"
+                android:id="@+id/lbl_nombre"
                 android:layout_width="328dp"
                 android:layout_height="50dp"
-                android:layout_gravity="start"
+                android:layout_gravity="start|center_horizontal"
                 android:gravity="bottom"
-                android:text="@string/txt_fecha"
+                android:text="@string/txt_nombre"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/txt_fecha"
+                android:id="@+id/txt_nombre"
                 android:layout_width="328dp"
                 android:layout_height="50dp"
                 android:layout_gravity="start"
+                android:autofillHints=""
                 android:ems="10"
                 android:gravity="bottom"
-                android:hint="@string/txt_fecha"
-                android:importantForAutofill="no"
-                android:inputType="text" />
+                android:hint="@string/txt_nombre"
+                android:inputType="textPersonName"
+                android:textAllCaps="false"
+                android:textIsSelectable="false" />
+
+            <TextView
+                android:id="@+id/lbl_contacto"
+                android:layout_width="328dp"
+                android:layout_height="50dp"
+                android:layout_gravity="start"
+                android:gravity="bottom"
+                android:text="@string/txt_contacto"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/txt_contacto"
+                android:layout_width="328dp"
+                android:layout_height="100dp"
+                android:layout_gravity="start"
+                android:autofillHints=""
+                android:ems="10"
+                android:gravity="bottom"
+                android:hint="@string/txt_contacto"
+                android:inputType="textMultiLine" />
 
             <TextView
                 android:id="@+id/lbl_descripcion"
@@ -69,7 +91,7 @@ tools:openDrawer="start"
             <EditText
                 android:id="@+id/txt_descripcion"
                 android:layout_width="328dp"
-                android:layout_height="300dp"
+                android:layout_height="180dp"
                 android:layout_gravity="start"
                 android:ems="10"
                 android:gravity="bottom"
@@ -107,7 +129,6 @@ tools:openDrawer="start"
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
-
 <com.google.android.material.navigation.NavigationView
     android:id="@+id/navigator"
     android:layout_width="wrap_content"
@@ -115,7 +136,5 @@ tools:openDrawer="start"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"
     app:menu="@menu/navigation_menu"
-
     android:layout_gravity="start"/>
-
 </androidx.drawerlayout.widget.DrawerLayout>

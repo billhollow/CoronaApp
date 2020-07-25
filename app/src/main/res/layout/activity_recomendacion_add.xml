@@ -18,7 +18,7 @@ tools:openDrawer="start"
     android:fadeScrollbars="false"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    tools:context=".Comunicado_view">
+    tools:context=".Recomendacion_add">
 
     <ScrollView
         android:layout_width="wrap_content"
@@ -34,46 +34,47 @@ tools:openDrawer="start"
             android:paddingTop="0sp"
             android:paddingEnd="20sp">
 
-
             <TextView
-                android:id="@+id/lbl_fecha"
+                android:id="@+id/lbl_titulo"
                 android:layout_width="328dp"
                 android:layout_height="50dp"
-                android:layout_gravity="start"
+                android:layout_gravity="start|center_horizontal"
                 android:gravity="bottom"
-                android:text="@string/txt_fecha"
+                android:text="@string/txt_titulo"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/txt_fecha"
+                android:id="@+id/txt_titulo"
                 android:layout_width="328dp"
                 android:layout_height="50dp"
                 android:layout_gravity="start"
+                android:autofillHints=""
                 android:ems="10"
                 android:gravity="bottom"
-                android:hint="@string/txt_fecha"
-                android:importantForAutofill="no"
-                android:inputType="text" />
+                android:hint="@string/txt_titulo"
+                android:inputType="textPersonName"
+                android:textAllCaps="false"
+                android:textIsSelectable="false" />
 
             <TextView
-                android:id="@+id/lbl_descripcion"
+                android:id="@+id/lbl_contenido"
                 android:layout_width="328dp"
                 android:layout_height="50dp"
                 android:layout_gravity="start"
                 android:gravity="bottom"
-                android:text="@string/txt_descripcion"
+                android:text="@string/txt_contenido"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/txt_descripcion"
+                android:id="@+id/txt_contenido"
                 android:layout_width="328dp"
-                android:layout_height="300dp"
+                android:layout_height="180dp"
                 android:layout_gravity="start"
                 android:ems="10"
                 android:gravity="bottom"
-                android:hint="@string/txt_descripcion"
+                android:hint="@string/txt_contenido"
                 android:importantForAutofill="no"
                 android:inputType="textMultiLine" />
 
@@ -88,7 +89,7 @@ tools:openDrawer="start"
                     style="@style/Widget.AppCompat.Button.Colored"
                     android:layout_width="162dp"
                     android:layout_height="wrap_content"
-                    android:onClick="Cancelar"
+                    android:onClick="index"
                     android:text="@string/btn_cancelar" />
 
                 <Button
@@ -96,26 +97,21 @@ tools:openDrawer="start"
                     style="@style/Widget.AppCompat.Button.Colored"
                     android:layout_width="162dp"
                     android:layout_height="wrap_content"
-                    android:onClick="Aceptar"
                     android:text="@string/btn_aceptar" />
 
             </LinearLayout>
-
 
         </LinearLayout>
     </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-<com.google.android.material.navigation.NavigationView
-    android:id="@+id/navigator"
-    android:layout_width="wrap_content"
-    android:layout_height="match_parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    app:menu="@menu/navigation_menu"
-
-    android:layout_gravity="start"/>
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/navigator"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:menu="@menu/navigation_menu"
+        android:layout_gravity="start"/>
 
 </androidx.drawerlayout.widget.DrawerLayout>

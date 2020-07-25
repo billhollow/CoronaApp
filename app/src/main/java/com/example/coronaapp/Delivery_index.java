@@ -1,16 +1,15 @@
 package com.example.coronaapp;
 
-import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -18,28 +17,24 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.example.coronaapp.model.Comunicado;
+import com.example.coronaapp.model.Delivery;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
-import java.util.UUID;
+import java.util.ArrayList;
+import java.util.List;
 
-@SuppressWarnings("SpellCheckingInspection")
-public class Comunicado_add extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class Delivery_index extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
-    //Declaración variables a utilizar
-    EditText fecha, descripcion;
-    Button aceptar,cancelar;
+    private List <Delivery> listaDelivery = new ArrayList <Delivery> ();
+    ArrayAdapter<Delivery> deliveryArrayAdapter;
     DatabaseReference myRef;
-    Comunicado comunicado;
-
-    private String formattedDate;
-    private Date date;
+    ListView lista;
+    private Delivery deliverySelected;
 
     //menu copy1
     private DrawerLayout drawerLayout;
@@ -47,7 +42,7 @@ public class Comunicado_add extends AppCompatActivity implements NavigationView.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_comunicado_add);
+        setContentView(R.layout.activity_delivery_index);
 
         //menu copy 1
         NavigationView navigationMenu= findViewById(R.id.navigator);
@@ -57,78 +52,53 @@ public class Comunicado_add extends AppCompatActivity implements NavigationView.
         actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_bar_1);
         drawerLayout = findViewById(R.id.drawer_layout);
 
-        date = Calendar.getInstance().getTime();
-        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-        formattedDate = df.format(date);
-
-        //Extracción de datos
-        descripcion=(EditText)findViewById(R.id.txt_descripcion);
-        fecha=findViewById(R.id.txt_fecha);
-        aceptar=(Button)findViewById(R.id.btn_aceptar);
-        cancelar=(Button)findViewById(R.id.btn_cancelar);
-        comunicado= new Comunicado();
-
-        fecha.setText(formattedDate);
-
-        Calendar calendar = Calendar.getInstance();
-        final int year = calendar.get(Calendar.YEAR);
-        final int month = calendar.get(Calendar.MONTH);
-        final int day = calendar.get(Calendar.DAY_OF_MONTH);
-
-
-        fecha.setOnClickListener(new View.OnClickListener(){
-
+        lista = findViewById(R.id.lista_delivery);
+        establecerConexion();
+        mostrar();
+        lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View v){
-                closeKeyboard();
-                DatePickerDialog datePickerDialog = new DatePickerDialog(
-                        Comunicado_add.this, new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int day) {
-                        month = month+1;
-                        String auxDate = day+"-"+month+"-"+year;
-                        fecha.setText(auxDate);
-                    }
-                }, year, month, day);
-                datePickerDialog.show();
-
-            }
-        });
-        //conexión con la base de datos
-        myRef= FirebaseDatabase.getInstance().getReference().child("Comunicado");
-
-        //listener boton aceptar
-        aceptar.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-
-                String des = descripcion.getText().toString();
-                String fec = fecha.getText().toString();
-
-                comunicado.setUid(UUID.randomUUID().toString());
-                comunicado.setDescripcion(des);
-                comunicado.setFormattedDate(fec);
-
-                //databaseReference.child("Noticia").child(noticia.getUid()).setValue(noticia);
-                myRef.child(comunicado.getUid()).setValue(comunicado);
-
-                Toast.makeText(Comunicado_add.this, "agregado", Toast.LENGTH_SHORT).show();
-                limpiar();
-
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                deliverySelected = (Delivery) parent.getItemAtPosition(position);
+                Intent ver = new Intent(Delivery_index.this, Delivery_view.class);
+                ver.putExtra("id",deliverySelected.getUid());
+                ver.putExtra("nombre",deliverySelected.getNombre());
+                ver.putExtra("contacto",deliverySelected.getContacto());
+                ver.putExtra("descripcion",deliverySelected.getDescripcion());
+                startActivity(ver);
             }
         });
     }
 
-    public void index(View view){
-        Intent index = new Intent(this, Comunicado_index.class);
-        startActivity(index);
+    //conexión con la base de datos
+    public void establecerConexion(){
+        myRef= FirebaseDatabase.getInstance().getReference("Delivery");
     }
 
+    public void mostrar(){
+
+        myRef= FirebaseDatabase.getInstance().getReference("Delivery");
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                listaDelivery.clear();
+                for(DataSnapshot objSnapShot : dataSnapshot.getChildren()){
+                    Delivery n1 = objSnapShot.getValue(Delivery.class);
+                    listaDelivery.add(n1);
+                    deliveryArrayAdapter = new ArrayAdapter<Delivery>(Delivery_index.this, android.R.layout.simple_list_item_1,listaDelivery);
+                    lista.setAdapter(deliveryArrayAdapter);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
     @Override
-    protected void onStart() {
-        super.onStart();
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.menu_1,menu);
+        return super.onCreateOptionsMenu(menu);
     }
-
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -170,6 +140,12 @@ public class Comunicado_add extends AppCompatActivity implements NavigationView.
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
+            case R.id.icon_add:{
+
+                Intent agregar = new Intent(Delivery_index.this, Delivery_add.class);
+                startActivity(agregar);
+                break;
+            }
             case android.R.id.home:{
                 if(drawerLayout.isOpen()){
                     drawerLayout.closeDrawer(GravityCompat.START);
@@ -185,6 +161,7 @@ public class Comunicado_add extends AppCompatActivity implements NavigationView.
         return true;
     }
 
+
     public void closeKeyboard(){
         View view = this.getCurrentFocus();
         if(view != null){
@@ -192,9 +169,4 @@ public class Comunicado_add extends AppCompatActivity implements NavigationView.
             imm.hideSoftInputFromWindow(view.getWindowToken(),0);
         }
     }
-
-    public void limpiar(){
-        descripcion.setText("");
-    }
-
 }

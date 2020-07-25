@@ -1,6 +1,5 @@
 package com.example.coronaapp;
 
-import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -10,7 +9,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -21,20 +19,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.example.coronaapp.model.Comunicado;
+import com.example.coronaapp.model.Recomendacion;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.Calendar;
-
-public class Comunicado_view extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class Recomendacion_view extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     //Declaración variables a utilizar
-    EditText fecha, descripcion;
+    EditText titulo,contenido;
     Button aceptar,cancelar;
     DatabaseReference myRef;
-    Comunicado comunicado;
 
     //menu copy1
     private DrawerLayout drawerLayout;
@@ -42,7 +37,7 @@ public class Comunicado_view extends AppCompatActivity implements NavigationView
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_comunicado_view);
+        setContentView(R.layout.activity_recomendacion_view);
 
         //menu copy 1
         NavigationView navigationMenu= findViewById(R.id.navigator);
@@ -53,43 +48,16 @@ public class Comunicado_view extends AppCompatActivity implements NavigationView
         drawerLayout = findViewById(R.id.drawer_layout);
 
         //Extracción de datos
-        descripcion=(EditText)findViewById(R.id.txt_descripcion);
-        fecha=findViewById(R.id.txt_fecha);
+        titulo=(EditText)findViewById(R.id.txt_titulo);
+        contenido=(EditText)findViewById(R.id.txt_contenido);
         aceptar=(Button)findViewById(R.id.btn_aceptar);
         cancelar=(Button)findViewById(R.id.btn_cancelar);
-        comunicado= new Comunicado();
 
-        Calendar calendar = Calendar.getInstance();
-        final int year = calendar.get(Calendar.YEAR);
-        final int month = calendar.get(Calendar.MONTH);
-        final int day = calendar.get(Calendar.DAY_OF_MONTH);
+        titulo.setText(getIntent().getStringExtra("titulo"));
+        contenido.setText(getIntent().getStringExtra("contenido"));
 
-
-        fecha.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View v){
-                closeKeyboard();
-                DatePickerDialog datePickerDialog = new DatePickerDialog(
-                        Comunicado_view.this, new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int day) {
-                        month = month+1;
-                        String auxDate = day+"-"+month+"-"+year;
-                        fecha.setText(auxDate);
-                    }
-                }, year, month, day);
-                datePickerDialog.show();
-
-            }
-        });
-
-        descripcion.setText(getIntent().getStringExtra("descripcion"));
-        fecha.setText(getIntent().getStringExtra("fecha"));
-
-        descripcion.setEnabled(false);
-        fecha.setEnabled(false);
-
+        titulo.setEnabled(false);
+        contenido.setEnabled(false);
         aceptar.setVisibility(View.GONE);
         cancelar.setVisibility(View.GONE);
         establecerConexion();
@@ -112,9 +80,9 @@ public class Comunicado_view extends AppCompatActivity implements NavigationView
                 builder.setPositiveButton("Si", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        myRef.child("Comunicado").child(getIntent().getStringExtra("id")).removeValue();
-                        Toast.makeText(Comunicado_view.this,"Borrado",Toast.LENGTH_SHORT).show();
-                        Intent borrado = new Intent(Comunicado_view.this, Comunicado_index.class);
+                        myRef.child("Recomendacion").child(getIntent().getStringExtra("id")).removeValue();
+                        Toast.makeText(Recomendacion_view.this,"Borrado",Toast.LENGTH_SHORT).show();
+                        Intent borrado = new Intent(Recomendacion_view.this, Recomendacion_index.class);
                         startActivity(borrado);
                     }
                 });
@@ -128,9 +96,9 @@ public class Comunicado_view extends AppCompatActivity implements NavigationView
                 break;
             }
             case R.id.icon_update:{
-                Toast.makeText(Comunicado_view.this,"Usted puede editar ahora",Toast.LENGTH_SHORT).show();
-                descripcion.setEnabled(true);
-                fecha.setEnabled(true);
+                Toast.makeText(Recomendacion_view.this,"Usted puede editar ahora",Toast.LENGTH_SHORT).show();
+                titulo.setEnabled(true);
+                contenido.setEnabled(true);
                 aceptar.setVisibility(View.VISIBLE);
                 cancelar.setVisibility(View.VISIBLE);
                 break;
@@ -156,49 +124,48 @@ public class Comunicado_view extends AppCompatActivity implements NavigationView
     }
     public void Aceptar(View view){
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Actualizar");
-        builder.setMessage("¿Esta seguro de actualizar este elemento?");
-        builder.setPositiveButton("Si", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
+        if(validador()){
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Actualizar");
+            builder.setMessage("¿Esta seguro de actualizar este elemento?");
+            builder.setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
 
-                Comunicado n = new Comunicado();
-
-                n.setUid(getIntent().getStringExtra("id"));
-
-                n.setDescripcion(descripcion.getText().toString());
-                n.setFormattedDate(fecha.getText().toString());
-
-                myRef.child("Comunicado").child(getIntent().getStringExtra("id")).setValue(n);
-                Toast.makeText(Comunicado_view.this,"Actualizado",Toast.LENGTH_SHORT).show();
-                restart();
-            }
-        });
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-            }
-        });
-        AlertDialog dialog = builder.create();
-        dialog.show();
-
+                    Recomendacion n = new Recomendacion();
+                    n.setUid(getIntent().getStringExtra("id"));
+                    n.setTitulo(titulo.getText().toString());
+                    n.setContenido(contenido.getText().toString());
+                    myRef.child("Recomendacion").child(getIntent().getStringExtra("id")).setValue(n);
+                    Toast.makeText(Recomendacion_view.this,"Actualizado",Toast.LENGTH_SHORT).show();
+                    restart();
+                }
+            });
+            builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                }
+            });
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        }
 
 
     }
     public void establecerConexion(){
         myRef= FirebaseDatabase.getInstance().getReference();
     }
-
     public void restart(){
-        descripcion.setEnabled(false);
-        fecha.setEnabled(false);
+        titulo.setEnabled(false);
+        contenido.setEnabled(false);
         aceptar.setVisibility(View.GONE);
         cancelar.setVisibility(View.GONE);
     }
 
+    public boolean validador(){
 
-
+        return true;
+    }
 
 
     @Override

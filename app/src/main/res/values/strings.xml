@@ -21,6 +21,11 @@
 
     <string name="list_noticias">NOTICIAS2</string>
 
+    <string name="txt_nombre"> Nombre</string>
+    <string name="txt_contacto"> Contacto</string>
+
+    <string name="txt_contenido"> Contenido</string>
+
     <string name="open"> Open</string>
     <string name="close"> Close</string>
 </resources>

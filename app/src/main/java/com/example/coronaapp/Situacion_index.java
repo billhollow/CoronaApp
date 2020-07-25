@@ -10,7 +10,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -124,11 +123,15 @@ public class Situacion_index extends AppCompatActivity implements NavigationView
                 break;
             }
             case R.id.delivery:{
-                Toast.makeText(this, "Gonna die, you know! D", Toast.LENGTH_SHORT).show();
+                drawerLayout.closeDrawer(GravityCompat.START);
+                Intent index= new Intent(this, Delivery_index.class);
+                startActivity(index);
                 break;
             }
             case R.id.recomendaciones:{
-                Toast.makeText(this, "Gonna die, you know! R", Toast.LENGTH_SHORT).show();
+                drawerLayout.closeDrawer(GravityCompat.START);
+                Intent index= new Intent(this, Recomendacion_index.class);
+                startActivity(index);
                 break;
             }
         }

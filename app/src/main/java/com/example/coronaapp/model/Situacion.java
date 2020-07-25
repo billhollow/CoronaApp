@@ -4,8 +4,8 @@ import java.util.Date;
 
 public class Situacion {
     private String uid;
-    private int infectados;
-    private int muertos;
+    private double infectados;
+    private double muertos;
     private String formattedDate;
     private Date date;
 
@@ -37,19 +37,19 @@ public class Situacion {
         this.date = date;
     }
 
-    public int getInfectados() {
+    public double getInfectados() {
         return infectados;
     }
 
-    public void setInfectados(int infectados) {
+    public void setInfectados(double infectados) {
         this.infectados = infectados;
     }
 
-    public int getMuertos() {
+    public double getMuertos() {
         return muertos;
     }
 
-    public void setMuertos(int muertos) {
+    public void setMuertos(double muertos) {
         this.muertos = muertos;
     }
 

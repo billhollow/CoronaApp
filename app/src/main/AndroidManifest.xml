@@ -11,7 +11,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Comunicado_view"></activity>
+        <activity android:name=".Recomendacion_view"></activity>
+        <activity android:name=".Recomendacion_add" />
+        <activity android:name=".Delivery_view" />
+        <activity android:name=".Delivery_add" />
+        <activity android:name=".Recomendacion_index" />
+        <activity android:name=".Delivery_index" />
+        <activity android:name=".Comunicado_view" />
         <activity android:name=".Comunicado_add" />
         <activity android:name=".Comunicado_index" />
         <activity android:name=".Main2Activity" />

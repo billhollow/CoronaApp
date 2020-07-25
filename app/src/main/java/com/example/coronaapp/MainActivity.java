@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             return false;
         }
 
-        if(tit.trim().length() >= 1000){
+        if(des.trim().length() >= 1000){
             Toast.makeText(MainActivity.this, "la descripción no puede ser mayor a 1000 caracteres", Toast.LENGTH_SHORT).show();
             return false;
         }
@@ -168,11 +168,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             }
             case R.id.delivery:{
-                Toast.makeText(this, "Gonna die, you know! D", Toast.LENGTH_SHORT).show();
+                drawerLayout.closeDrawer(GravityCompat.START);
+                Intent index= new Intent(this, Delivery_index.class);
+                startActivity(index);
                 break;
             }
             case R.id.recomendaciones:{
-                Toast.makeText(this, "Gonna die, you know! R", Toast.LENGTH_SHORT).show();
+                drawerLayout.closeDrawer(GravityCompat.START);
+                Intent index= new Intent(this, Recomendacion_index.class);
+                startActivity(index);
                 break;
             }
         }

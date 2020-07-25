@@ -1,6 +1,5 @@
 package com.example.coronaapp;
 
-import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,7 +7,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -18,28 +16,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.example.coronaapp.model.Situacion;
+import com.example.coronaapp.model.Recomendacion;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
 import java.util.UUID;
 
 @SuppressWarnings("SpellCheckingInspection")
-public class Situacion_add extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class Recomendacion_add extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     //Declaración variables a utilizar
-    EditText infectados, muertos, fecha;
+    EditText titulo,contenido;
     Button aceptar,cancelar;
     DatabaseReference myRef;
-    Situacion situacion;
-
-    private String formattedDate;
-    private Date date;
+    Recomendacion recomendacion;
 
     //menu copy1
     private DrawerLayout drawerLayout;
@@ -47,7 +38,7 @@ public class Situacion_add extends AppCompatActivity implements NavigationView.O
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_situacion_add);
+        setContentView(R.layout.activity_recomendacion_add);
 
         //menu copy 1
         NavigationView navigationMenu= findViewById(R.id.navigator);
@@ -57,74 +48,43 @@ public class Situacion_add extends AppCompatActivity implements NavigationView.O
         actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_bar_1);
         drawerLayout = findViewById(R.id.drawer_layout);
 
-        date = Calendar.getInstance().getTime();
-        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-        formattedDate = df.format(date);
 
 
         //Extracción de datos
-        infectados=(EditText)findViewById(R.id.txt_infectados);
-        muertos=(EditText)findViewById(R.id.txt_muertos);
-        fecha=findViewById(R.id.txt_fecha);
+        titulo=(EditText)findViewById(R.id.txt_titulo);
+        contenido=(EditText)findViewById(R.id.txt_contenido);
         aceptar=(Button)findViewById(R.id.btn_aceptar);
         cancelar=(Button)findViewById(R.id.btn_cancelar);
-        situacion= new Situacion();
+        recomendacion = new Recomendacion();
 
-        fecha.setText(formattedDate);
-
-        Calendar calendar = Calendar.getInstance();
-        final int year = calendar.get(Calendar.YEAR);
-        final int month = calendar.get(Calendar.MONTH);
-        final int day = calendar.get(Calendar.DAY_OF_MONTH);
-
-
-        fecha.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View v){
-                closeKeyboard();
-                DatePickerDialog datePickerDialog = new DatePickerDialog(
-                        Situacion_add.this, new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int day) {
-                        month = month+1;
-                        String auxDate = day+"-"+month+"-"+year;
-                        fecha.setText(auxDate);
-                    }
-                }, year, month, day);
-                datePickerDialog.show();
-
-            }
-        });
         //conexión con la base de datos
-        myRef= FirebaseDatabase.getInstance().getReference().child("Situacion");
+        myRef= FirebaseDatabase.getInstance().getReference().child("Recomendacion");
 
         //listener boton aceptar
         aceptar.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
 
-                String inf = infectados.getText().toString();
-                String mue = muertos.getText().toString();
-                String fec = fecha.getText().toString();
+                if(validador()){
 
-                situacion.setUid(UUID.randomUUID().toString());
-                situacion.setInfectados(Double.parseDouble(inf));
-                situacion.setMuertos(Double.parseDouble(mue));
-                situacion.setFormattedDate(fec);
+                    String tit = titulo.getText().toString();
+                    String con = contenido.getText().toString();
 
-                //databaseReference.child("Noticia").child(noticia.getUid()).setValue(noticia);
-                myRef.child(situacion.getUid()).setValue(situacion);
+                    recomendacion.setUid(UUID.randomUUID().toString());
+                    recomendacion.setTitulo(tit);
+                    recomendacion.setContenido(con);
 
-                Toast.makeText(Situacion_add.this, "agregado", Toast.LENGTH_SHORT).show();
-                limpiar();
-
+                    myRef.child(recomendacion.getUid()).setValue(recomendacion);
+                    Toast.makeText(Recomendacion_add.this, "agregado", Toast.LENGTH_SHORT).show();
+                    titulo.setText("");
+                    contenido.setText("");
+                }
             }
         });
     }
 
     public void index(View view){
-        Intent index = new Intent(this, Situacion_index.class);
+        Intent index = new Intent(this, Recomendacion_index.class);
         startActivity(index);
     }
 
@@ -133,6 +93,31 @@ public class Situacion_add extends AppCompatActivity implements NavigationView.O
         super.onStart();
     }
 
+    public boolean validador(){
+        String tit = titulo.getText().toString();
+        String con = contenido.getText().toString();
+
+        if(tit.trim().isEmpty()){
+            Toast.makeText(this, "el titulo no puede estar vacío", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if(tit.trim().length() >= 50){
+            Toast.makeText(this, "el titulo no puede tener más de 50 caracteres", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if(con.trim().isEmpty()){
+            Toast.makeText(this, "el contenido no puede estar vacío", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if(con.trim().length() >= 1000){
+            Toast.makeText(this, "el contenido no puede tener más de 1000 caracteres", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        return true;
+    }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -197,12 +182,7 @@ public class Situacion_add extends AppCompatActivity implements NavigationView.O
         }
     }
 
-    public void limpiar(){
-        infectados.setText("");
-        muertos.setText("");
-    }
 
 }
-
 
 
