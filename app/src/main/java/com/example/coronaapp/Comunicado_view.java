@@ -52,6 +52,8 @@ public class Comunicado_view extends AppCompatActivity implements NavigationView
         actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_bar_1);
         drawerLayout = findViewById(R.id.drawer_layout);
 
+        navigationMenu.getMenu().getItem(2).setChecked(true);
+
         //Extracción de datos
         descripcion=(EditText)findViewById(R.id.txt_descripcion);
         fecha=findViewById(R.id.txt_fecha);
@@ -156,32 +158,35 @@ public class Comunicado_view extends AppCompatActivity implements NavigationView
     }
     public void Aceptar(View view){
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Actualizar");
-        builder.setMessage("¿Esta seguro de actualizar este elemento?");
-        builder.setPositiveButton("Si", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
+        if(validador()) {
 
-                Comunicado n = new Comunicado();
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Actualizar");
+            builder.setMessage("¿Esta seguro de actualizar este elemento?");
+            builder.setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
 
-                n.setUid(getIntent().getStringExtra("id"));
+                    Comunicado n = new Comunicado();
 
-                n.setDescripcion(descripcion.getText().toString());
-                n.setFormattedDate(fecha.getText().toString());
+                    n.setUid(getIntent().getStringExtra("id"));
 
-                myRef.child("Comunicado").child(getIntent().getStringExtra("id")).setValue(n);
-                Toast.makeText(Comunicado_view.this,"Actualizado",Toast.LENGTH_SHORT).show();
-                restart();
-            }
-        });
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-            }
-        });
-        AlertDialog dialog = builder.create();
-        dialog.show();
+                    n.setDescripcion(descripcion.getText().toString());
+                    n.setFormattedDate(fecha.getText().toString());
+
+                    myRef.child("Comunicado").child(getIntent().getStringExtra("id")).setValue(n);
+                    Toast.makeText(Comunicado_view.this, "Actualizado", Toast.LENGTH_SHORT).show();
+                    restart();
+                }
+            });
+            builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                }
+            });
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        }
 
 
 
@@ -197,7 +202,19 @@ public class Comunicado_view extends AppCompatActivity implements NavigationView
         cancelar.setVisibility(View.GONE);
     }
 
+    public boolean validador(){
+        String auxdes = descripcion.getText().toString();
+        if(auxdes.trim().isEmpty()){
+            Toast.makeText(this, "La descripción no puede estar vacía", Toast.LENGTH_SHORT).show();
+            return false;
+        }
 
+        if(auxdes.trim().length() >= 1000){
+            Toast.makeText(this, "La descripción no puede tener más de 1000 caracteres", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
+    }
 
 
 

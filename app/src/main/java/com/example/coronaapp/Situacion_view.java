@@ -23,9 +23,13 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.coronaapp.model.Situacion;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class Situacion_view extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
@@ -35,6 +39,7 @@ public class Situacion_view extends AppCompatActivity implements NavigationView.
     Button aceptar,cancelar;
     DatabaseReference myRef;
     Situacion situacion;
+    ArrayList<Situacion> listaSituacion =  new ArrayList<Situacion>();
 
 
     //menu copy1
@@ -53,6 +58,8 @@ public class Situacion_view extends AppCompatActivity implements NavigationView.
         actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_bar_1);
         drawerLayout = findViewById(R.id.drawer_layout);
 
+        navigationMenu.getMenu().getItem(1).setChecked(true);
+
         //Extracción de datos
         infectados=(EditText)findViewById(R.id.txt_infectados);
         muertos=(EditText)findViewById(R.id.txt_muertos);
@@ -66,6 +73,24 @@ public class Situacion_view extends AppCompatActivity implements NavigationView.
         final int month = calendar.get(Calendar.MONTH);
         final int day = calendar.get(Calendar.DAY_OF_MONTH);
 
+        myRef= FirebaseDatabase.getInstance().getReference("Situacion");
+        myRef.addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        listaSituacion = new ArrayList<Situacion>();
+                        for(DataSnapshot dsp : dataSnapshot.getChildren()){
+                            Situacion n1 = dsp.getValue(Situacion.class);
+                            listaSituacion.add(n1);
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                    }
+                }
+        );
 
         fecha.setOnClickListener(new View.OnClickListener(){
 
@@ -160,6 +185,7 @@ public class Situacion_view extends AppCompatActivity implements NavigationView.
         restart();
     }
     public void Aceptar(View view){
+        if(validador()) {
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Actualizar");
@@ -177,7 +203,7 @@ public class Situacion_view extends AppCompatActivity implements NavigationView.
                     n.setFormattedDate(fecha.getText().toString());
 
                     myRef.child("Situacion").child(getIntent().getStringExtra("id")).setValue(n);
-                    Toast.makeText(Situacion_view.this,"Actualizado",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Situacion_view.this, "Actualizado", Toast.LENGTH_SHORT).show();
                     restart();
                 }
             });
@@ -189,6 +215,7 @@ public class Situacion_view extends AppCompatActivity implements NavigationView.
             AlertDialog dialog = builder.create();
             dialog.show();
 
+        }
 
 
     }
@@ -204,7 +231,43 @@ public class Situacion_view extends AppCompatActivity implements NavigationView.
         cancelar.setVisibility(View.GONE);
     }
 
+    public boolean validador(){
 
+        String auxinf = infectados.getText().toString();
+        String auxmue = muertos.getText().toString();
+        String auxfec = fecha.getText().toString();
+
+        for(int i=0;i<listaSituacion.size();i++){
+            if(listaSituacion.get(i).getFormattedDate().equals(auxfec)){
+                Toast.makeText(this, "la fecha: "+auxfec+ " ya esta en uso", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        }
+
+        if(auxinf.trim().isEmpty()){
+            Toast.makeText(this, "la cantidad de infectados no puede estar vacía", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if(auxinf.trim().length() >= 15){
+            Toast.makeText(this, "No se admiten más de 15 digitos en la cantidad de infectados", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if(auxmue.trim().isEmpty()){
+            Toast.makeText(this, "la cantidad de muertos no puede estar vacía", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if(auxmue.trim().length() >= 15){
+            Toast.makeText(this, "No se admiten más de 15 digitos en la cantidad de muertos", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+
+
+        return true;
+    }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {

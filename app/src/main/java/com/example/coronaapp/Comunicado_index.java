@@ -52,6 +52,8 @@ public class Comunicado_index extends AppCompatActivity implements NavigationVie
         actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_bar_1);
         drawerLayout = findViewById(R.id.drawer_layout);
 
+        navigationMenu.getMenu().getItem(2).setChecked(true);
+
         lista = findViewById(R.id.lista_comunicado);
         establecerConexion();
         mostrar();

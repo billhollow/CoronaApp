@@ -57,6 +57,8 @@ public class Comunicado_add extends AppCompatActivity implements NavigationView.
         actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_bar_1);
         drawerLayout = findViewById(R.id.drawer_layout);
 
+        navigationMenu.getMenu().getItem(2).setChecked(true);
+
         date = Calendar.getInstance().getTime();
         SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
         formattedDate = df.format(date);
@@ -102,19 +104,20 @@ public class Comunicado_add extends AppCompatActivity implements NavigationView.
             @Override
             public void onClick(View view) {
 
-                String des = descripcion.getText().toString();
-                String fec = fecha.getText().toString();
+                if(validador()) {
+                    String des = descripcion.getText().toString();
+                    String fec = fecha.getText().toString();
 
-                comunicado.setUid(UUID.randomUUID().toString());
-                comunicado.setDescripcion(des);
-                comunicado.setFormattedDate(fec);
+                    comunicado.setUid(UUID.randomUUID().toString());
+                    comunicado.setDescripcion(des);
+                    comunicado.setFormattedDate(fec);
 
-                //databaseReference.child("Noticia").child(noticia.getUid()).setValue(noticia);
-                myRef.child(comunicado.getUid()).setValue(comunicado);
+                    //databaseReference.child("Noticia").child(noticia.getUid()).setValue(noticia);
+                    myRef.child(comunicado.getUid()).setValue(comunicado);
 
-                Toast.makeText(Comunicado_add.this, "agregado", Toast.LENGTH_SHORT).show();
-                limpiar();
-
+                    Toast.makeText(Comunicado_add.this, "agregado", Toast.LENGTH_SHORT).show();
+                    limpiar();
+                }
             }
         });
     }
@@ -122,6 +125,20 @@ public class Comunicado_add extends AppCompatActivity implements NavigationView.
     public void index(View view){
         Intent index = new Intent(this, Comunicado_index.class);
         startActivity(index);
+    }
+
+    public boolean validador(){
+        String auxdes = descripcion.getText().toString();
+        if(auxdes.trim().isEmpty()){
+            Toast.makeText(this, "La descripción no puede estar vacía", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if(auxdes.trim().length() >= 1000){
+            Toast.makeText(this, "La descripción no puede tener más de 1000 caracteres", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
     }
 
     @Override

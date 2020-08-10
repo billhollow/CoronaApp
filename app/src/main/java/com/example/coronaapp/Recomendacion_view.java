@@ -47,6 +47,8 @@ public class Recomendacion_view extends AppCompatActivity implements NavigationV
         actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_bar_1);
         drawerLayout = findViewById(R.id.drawer_layout);
 
+        navigationMenu.getMenu().getItem(4).setChecked(true);
+
         //Extracción de datos
         titulo=(EditText)findViewById(R.id.txt_titulo);
         contenido=(EditText)findViewById(R.id.txt_contenido);
@@ -163,6 +165,27 @@ public class Recomendacion_view extends AppCompatActivity implements NavigationV
     }
 
     public boolean validador(){
+        String tit = titulo.getText().toString();
+        String con = contenido.getText().toString();
+
+        if(tit.trim().isEmpty()){
+            Toast.makeText(this, "el titulo no puede estar vacío", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if(tit.trim().length() >= 50){
+            Toast.makeText(this, "el titulo no puede tener más de 50 caracteres", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if(con.trim().isEmpty()){
+            Toast.makeText(this, "el contenido no puede estar vacío", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if(con.trim().length() >= 1000){
+            Toast.makeText(this, "el contenido no puede tener más de 1000 caracteres", Toast.LENGTH_SHORT).show();
+            return false;
+        }
 
         return true;
     }

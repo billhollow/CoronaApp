@@ -52,6 +52,8 @@ public class Delivery_index extends AppCompatActivity implements NavigationView.
         actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_bar_1);
         drawerLayout = findViewById(R.id.drawer_layout);
 
+        navigationMenu.getMenu().getItem(3).setChecked(true);
+
         lista = findViewById(R.id.lista_delivery);
         establecerConexion();
         mostrar();

@@ -48,6 +48,8 @@ public class Delivery_view extends AppCompatActivity implements NavigationView.O
         actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_bar_1);
         drawerLayout = findViewById(R.id.drawer_layout);
 
+        navigationMenu.getMenu().getItem(3).setChecked(true);
+
         //Extracción de datos
         nombre=(EditText)findViewById(R.id.txt_nombre);
         contacto=(EditText)findViewById(R.id.txt_contacto);
@@ -170,6 +172,39 @@ public class Delivery_view extends AppCompatActivity implements NavigationView.O
     }
 
     public boolean validador(){
+        String nom = nombre.getText().toString();
+        String con = contacto.getText().toString();
+        String des = descripcion.getText().toString();
+
+
+        if(nom.trim().isEmpty()){
+            Toast.makeText(this, "el nombre no puede estar vacío", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if(nom.trim().length() >= 50){
+            Toast.makeText(this, "el nombre no puede tener más de 50 caracteres", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if(con.trim().isEmpty()){
+            Toast.makeText(this, "el contacto no puede estar vacío", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if(con.trim().length() >= 100){
+            Toast.makeText(this, "el contacto no puede tener más de 100 caracteres", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if(des.trim().isEmpty()){
+            Toast.makeText(this, "La descripción no puede estar vacia", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if(des.trim().length() >= 1000){
+            Toast.makeText(this, "la descripción no puede ser mayor a 1000 caracteres", Toast.LENGTH_SHORT).show();
+            return false;
+        }
 
         return true;
     }

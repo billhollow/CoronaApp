@@ -48,6 +48,7 @@ public class Delivery_add extends AppCompatActivity implements NavigationView.On
         actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_bar_1);
         drawerLayout = findViewById(R.id.drawer_layout);
 
+        navigationMenu.getMenu().getItem(3).setChecked(true);
 
 
         //Extracción de datos

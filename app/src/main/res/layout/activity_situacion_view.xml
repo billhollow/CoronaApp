@@ -53,7 +53,7 @@
                     android:ems="10"
                     android:gravity="bottom"
                     android:hint="@string/txt_infectados"
-                    android:inputType="textPersonName"
+                    android:inputType="number"
                     android:textAllCaps="false"
                     android:textIsSelectable="false" />
 
@@ -76,7 +76,7 @@
                     android:ems="10"
                     android:gravity="bottom"
                     android:hint="@string/txt_muertos"
-                    android:inputType="textPersonName" />
+                    android:inputType="number" />
 
                 <TextView
                     android:id="@+id/lbl_fecha"
@@ -97,7 +97,7 @@
                     android:gravity="bottom"
                     android:hint="@string/txt_fecha"
                     android:importantForAutofill="no"
-                    android:inputType="text" />
+                    android:inputType="date" />
 
                 <LinearLayout
                     android:id="@+id/buttons_group"
@@ -130,13 +130,15 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.navigation.NavigationView
+
+
         android:id="@+id/navigator"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:menu="@menu/navigation_menu"
-
+        app:headerLayout="@layout/drawer_header"
         android:layout_gravity="start"/>
 
 </androidx.drawerlayout.widget.DrawerLayout>

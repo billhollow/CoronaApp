@@ -45,6 +45,8 @@ public class Noticia_view extends AppCompatActivity implements NavigationView.On
         actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_bar_1);
         drawerLayout = findViewById(R.id.drawer_layout);
 
+        navigationMenu.getMenu().getItem(0).setChecked(true);
+
         //Extracción de datos
         titulo=(EditText)findViewById(R.id.txt_titulo);
         tema=(EditText)findViewById(R.id.txt_tema);
@@ -175,18 +177,36 @@ public class Noticia_view extends AppCompatActivity implements NavigationView.On
         String tem = tema.getText().toString();
         String des = descripcion.getText().toString();
 
+
         if(tit.trim().isEmpty()){
             Toast.makeText(Noticia_view.this, "el título no puede estar vacío", Toast.LENGTH_SHORT).show();
             return false;
         }
+
+        if(tit.trim().length() >= 50){
+            Toast.makeText(Noticia_view.this, "el título no puede tener más de 50 caracteres", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
         if(tem.trim().isEmpty()){
             Toast.makeText(Noticia_view.this, "el tema no puede estar vacío", Toast.LENGTH_SHORT).show();
             return false;
         }
+        if(tit.trim().length() >= 50){
+            Toast.makeText(Noticia_view.this, "el tema no puede tener más de 50 caracteres", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
         if(des.trim().isEmpty()){
             Toast.makeText(Noticia_view.this, "La descripción no puede estar vacia", Toast.LENGTH_SHORT).show();
             return false;
         }
+
+        if(des.trim().length() >= 1000){
+            Toast.makeText(Noticia_view.this, "la descripción no puede ser mayor a 1000 caracteres", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
         return true;
     }
 

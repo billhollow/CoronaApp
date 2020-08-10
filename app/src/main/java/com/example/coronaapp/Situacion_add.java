@@ -20,10 +20,14 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.coronaapp.model.Situacion;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -37,6 +41,8 @@ public class Situacion_add extends AppCompatActivity implements NavigationView.O
     Button aceptar,cancelar;
     DatabaseReference myRef;
     Situacion situacion;
+    ArrayList<Situacion> listaSituacion =  new ArrayList<Situacion>();
+
 
     private String formattedDate;
     private Date date;
@@ -56,6 +62,8 @@ public class Situacion_add extends AppCompatActivity implements NavigationView.O
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_bar_1);
         drawerLayout = findViewById(R.id.drawer_layout);
+
+        navigationMenu.getMenu().getItem(1).setChecked(true);
 
         date = Calendar.getInstance().getTime();
         SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
@@ -78,6 +86,24 @@ public class Situacion_add extends AppCompatActivity implements NavigationView.O
         final int day = calendar.get(Calendar.DAY_OF_MONTH);
 
 
+        myRef= FirebaseDatabase.getInstance().getReference("Situacion");
+        myRef.addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        listaSituacion = new ArrayList<Situacion>();
+                        for(DataSnapshot dsp : dataSnapshot.getChildren()){
+                            Situacion n1 = dsp.getValue(Situacion.class);
+                            listaSituacion.add(n1);
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                    }
+                }
+        );
         fecha.setOnClickListener(new View.OnClickListener(){
 
             @Override
@@ -104,20 +130,23 @@ public class Situacion_add extends AppCompatActivity implements NavigationView.O
             @Override
             public void onClick(View view) {
 
-                String inf = infectados.getText().toString();
-                String mue = muertos.getText().toString();
-                String fec = fecha.getText().toString();
+                if(validador()) {
 
-                situacion.setUid(UUID.randomUUID().toString());
-                situacion.setInfectados(Double.parseDouble(inf));
-                situacion.setMuertos(Double.parseDouble(mue));
-                situacion.setFormattedDate(fec);
+                    String inf = infectados.getText().toString();
+                    String mue = muertos.getText().toString();
+                    String fec = fecha.getText().toString();
 
-                //databaseReference.child("Noticia").child(noticia.getUid()).setValue(noticia);
-                myRef.child(situacion.getUid()).setValue(situacion);
+                    situacion.setUid(UUID.randomUUID().toString());
+                    situacion.setInfectados(Double.parseDouble(inf));
+                    situacion.setMuertos(Double.parseDouble(mue));
+                    situacion.setFormattedDate(fec);
 
-                Toast.makeText(Situacion_add.this, "agregado", Toast.LENGTH_SHORT).show();
-                limpiar();
+                    //databaseReference.child("Noticia").child(noticia.getUid()).setValue(noticia);
+                    myRef.child(situacion.getUid()).setValue(situacion);
+
+                    Toast.makeText(Situacion_add.this, "agregado", Toast.LENGTH_SHORT).show();
+                    limpiar();
+                }
 
             }
         });
@@ -126,6 +155,44 @@ public class Situacion_add extends AppCompatActivity implements NavigationView.O
     public void index(View view){
         Intent index = new Intent(this, Situacion_index.class);
         startActivity(index);
+    }
+
+    public boolean validador(){
+
+        String auxinf = infectados.getText().toString();
+        String auxmue = muertos.getText().toString();
+        String auxfec = fecha.getText().toString();
+
+        for(int i=0;i<listaSituacion.size();i++){
+            if(listaSituacion.get(i).getFormattedDate().equals(auxfec)){
+                Toast.makeText(Situacion_add.this, "la fecha: "+auxfec+ " ya esta en uso", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        }
+
+        if(auxinf.trim().isEmpty()){
+            Toast.makeText(this, "la cantidad de infectados no puede estar vacía", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if(auxinf.trim().length() >= 15){
+            Toast.makeText(this, "No se admiten más de 15 digitos en la cantidad de infectados", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if(auxmue.trim().isEmpty()){
+            Toast.makeText(this, "la cantidad de muertos no puede estar vacía", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if(auxmue.trim().length() >= 15){
+            Toast.makeText(this, "No se admiten más de 15 digitos en la cantidad de muertos", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+
+
+        return true;
     }
 
     @Override

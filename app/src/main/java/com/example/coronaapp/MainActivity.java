@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_bar_1);
         drawerLayout = findViewById(R.id.drawer_layout);
 
-
+        navigationMenu.getMenu().getItem(0).setChecked(true);
 
         //Extracción de datos
         titulo=(EditText)findViewById(R.id.txt_titulo);
